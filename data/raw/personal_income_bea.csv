@@ -1,0 +1,60 @@
+Table 2.1. Personal Income and Its Disposition
+[Billions of dollars]
+"Last Revised on: August 26, 2026 - Next Release Date September 30, 2026"
+Line,,2025
+Line,,
+1,Personal income,26099.9
+2,"    Compensation of employees",15726.9
+3,"        Wages and salaries",12958.7
+4,"            Private industries",11028.4
+5,"            Government",1930.2
+6,"        Supplements to wages and salaries",2768.3
+7,"            Employer contributions for employee pension and insurance funds1",1859.3
+8,"            Employer contributions for government social insurance",909.0
+9,"    Proprietors' income with inventory valuation and capital consumption adjustments",2109.4
+10,"        Farm",75.8
+11,"        Nonfarm",2033.6
+12,"    Rental income of persons with capital consumption adjustment",1114.5
+13,"    Personal income receipts on assets",4216.3
+14,"        Personal interest income",1968.3
+15,"        Personal dividend income",2247.9
+16,"    Personal current transfer receipts",4952.0
+17,"        Government social benefits to persons",4845.1
+18,"            Social security2",1572.8
+19,"            Medicare3",1221.3
+20,"            Medicaid",1010.7
+21,"            Unemployment insurance",38.0
+22,"            Veterans' benefits",290.7
+23,"            Other",711.7
+24,"        Other current transfer receipts, from business (net)",106.8
+25,"    Less: Contributions for government social insurance, domestic",2019.1
+26,Less: Personal current taxes,3233.8
+27,Equals: Disposable personal income,22866.2
+28,Less: Personal outlays,21819.4
+29,"    Personal consumption expenditures",20954.9
+30,"    Personal interest payments4",577.7
+31,"    Personal current transfer payments",286.8
+32,"        To government",148.0
+33,"        To the rest of the world (net)",138.9
+34,Equals: Personal saving,1046.8
+35,"    Personal saving as a percentage of disposable personal income",4.6
+,Addenda:,
+36,"    Personal income excluding current transfer receipts, billions of chained (2017) dollars5",16662.8
+,"    Disposable personal income:",
+37,"        Total, billions of chained (2017) dollars5",18016.6
+,"        Per capita:",
+38,"            Current dollars",66871
+39,"            Chained (2017) dollars",52689
+40,"    Population (midperiod, thousands)6",341944
+,"    Percent change from preceding period:",
+41,"        Disposable personal income, current dollars",4.3
+42,"        Personal outlays, current dollars",5.3
+43,"        Disposable personal income, chained (2017) dollars",1.7
+
+Legend/Footnotes
+1. Includes actual employer contributions and actuarially imputed employer contributions to reflect benefits accrued by defined benefit pension plan participants through service to employers in the current period.
+"2. Social security benefits include old-age, survivors, and disability insurance benefits that are distributed from the federal old-age and survivors insurance trust fund and the disability insurance trust fund."
+3. Medicare benefits include hospital and supplementary medical insurance benefits that are distributed from the federal hospital insurance trust fund and the supplementary medical insurance trust fund.
+4. Consists of nonmortgage interest paid by households.  Note that mortgage interest paid by households is an expense item in the calculation of rental income of persons.
+5. The current-dollar measure is deflated by the implicit price deflator for personal consumption expenditures.
+"6. Population is the total population of the United States, including the Armed Forces overseas and the institutionalized population. The monthly estimate is the average of estimates for the first of the month and the first of the following month; the annual and quarterly estimates are averages of the monthly estimates."

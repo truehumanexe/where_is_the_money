@@ -1,17 +1,18 @@
-subject,unit,multiplier,source,search_query,filename,link
-household_stock_holdings,usd,1000000,FRED,BOGZ1LM193064005Q,BOGZ1LM193064005Q.csv,https://fred.stlouisfed.org/
-employment_level,population,1000,FRED,CE16OV,CE16OV.csv,https://fred.stlouisfed.org/
-corporate_profits,usd,1000000000,FRED,Corporate Profits After Tax,CP.csv,https://fred.stlouisfed.org/
-wealth_distribution,usd,1000000,Federal Reserve,DFA: Distributional Financial Accounts,Dfa-networth-levels.csv,https://www.federalreserve.gov/releases/z1/dataviz/dfa/distribute/chart/
-income_limit_quintiles,,1,Census,,h01ar.xlsx,https://www.census.gov/data/tables/time-series/demo/income-poverty/historical-income-households.html
-income_distribution_quintiles,,1,Census,,h02ar.xlsx,https://www.census.gov/data/tables/time-series/demo/income-poverty/historical-income-households.html
-not_in_labor_force,population,1000,FRED,LNS15000000,LNS15000000.csv,https://fred.stlouisfed.org/
-household_real_estate,usd,1000000,FRED,OEHRENWBSHNO,OEHRENWBSHNO.csv,https://fred.stlouisfed.org/
-us_population,population,1000,FRED,POPTHM,POPTHM.csv,https://fred.stlouisfed.org/
-net_worth_household_non_profit,usd,1000000,FRED,TNWBSHNO,TNWBSHNO.csv,https://fred.stlouisfed.org/
-unemployment_level,population,1000,FRED,UNEMPLOY,UNEMPLOY.csv,https://fred.stlouisfed.org/
-personal_taxes,usd,1000000000,FRED,W055RC1,W055RC1.csv,https://fred.stlouisfed.org/
-debt,,1,Treasury,Debt To Penny,DebtPenny_19930401_20260820.csv,https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny
-departmental_income,,1,Treasury,"curl -g -o mts_table_4.csv ""https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_table_4?fields=record_fiscal_year,record_date,parent_id,classification_id,classification_desc,current_month_net_rcpt_amt&filter=record_date:gte:2015-01-01&page[number]=1&page[size]=10000&format=csv""",mts_table_4.csv,https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/summary-of-receipts-outlays-and-the-deficit-surplus-of-the-u-s-government
-departmental_spending,,1,Treasury,"curl -g -o mts_table_5.csv ""https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_table_5?fields=record_fiscal_year,record_date,parent_id,classification_id,classification_desc,current_month_net_outly_amt&filter=record_date:gte:2015-01-01&page[number]=1&page[size]=10000&format=csv""",mts_table_5.csv,https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/summary-of-receipts-outlays-and-the-deficit-surplus-of-the-u-s-government
-us_households,population,1000,FRED,TTLHH,TTLHH.csv,https://fred.stlouisfed.org/series/TTLHH
+subject,unit,multiplier,source,search_query,filename,link,note
+household_stock_holdings,usd,1000000,FRED,BOGZ1LM193064005Q,BOGZ1LM193064005Q.csv,https://fred.stlouisfed.org/,
+employment_level,population,1000,FRED,CE16OV,CE16OV.csv,https://fred.stlouisfed.org/,
+corporate_profits,usd,1000000000,FRED,Corporate Profits After Tax,CP.csv,https://fred.stlouisfed.org/,
+wealth_distribution,usd,1000000,Federal Reserve,DFA: Distributional Financial Accounts,Dfa-networth-levels.csv,https://www.federalreserve.gov/releases/z1/dataviz/dfa/distribute/chart/,
+not_in_labor_force,population,1000,FRED,LNS15000000,LNS15000000.csv,https://fred.stlouisfed.org/,
+household_real_estate,usd,1000000,FRED,OEHRENWBSHNO,OEHRENWBSHNO.csv,https://fred.stlouisfed.org/,
+us_population,population,1000,FRED,POPTHM,POPTHM.csv,https://fred.stlouisfed.org/,
+net_worth_household_non_profit,usd,1000000,FRED,TNWBSHNO,TNWBSHNO.csv,https://fred.stlouisfed.org/,
+unemployment_level,population,1000,FRED,UNEMPLOY,UNEMPLOY.csv,https://fred.stlouisfed.org/,
+personal_taxes,usd,1000000000,FRED,W055RC1,W055RC1.csv,https://fred.stlouisfed.org/,
+debt,,1,Treasury,Debt To Penny,DebtPenny_19930401_20260820.csv,https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny,
+departmental_income,,1,Treasury,"curl -g -o mts_table_4.csv ""https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_table_4?fields=record_fiscal_year,record_date,parent_id,classification_id,classification_desc,current_month_net_rcpt_amt&filter=record_date:gte:2015-01-01&page[number]=1&page[size]=10000&format=csv""",mts_table_4.csv,https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/summary-of-receipts-outlays-and-the-deficit-surplus-of-the-u-s-government,
+departmental_spending,,1,Treasury,"curl -g -o mts_table_5.csv ""https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_table_5?fields=record_fiscal_year,record_date,parent_id,classification_id,classification_desc,current_month_net_outly_amt&filter=record_date:gte:2015-01-01&page[number]=1&page[size]=10000&format=csv""",mts_table_5.csv,https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/summary-of-receipts-outlays-and-the-deficit-surplus-of-the-u-s-government,
+us_households,population,1000,FRED,TTLHH,TTLHH.csv,https://fred.stlouisfed.org/series/TTLHH,
+census_personal_income,,,census,,pppub25_truncated.csv,https://www.census.gov/data/datasets/time-series/demo/cps/cps-asec.2025.html#list-tab-165711867,
+personal_income_dispositions,usd,,bea,Table 2.6. Personal Income and Its Disposition,SCFP2022.csv,https://www.federalreserve.gov/econres/scfindex.htm?utm_source=gemini,
+,,,,,,https://www.bea.gov/index.php/news/2026/personal-income-and-outlays-december-2025,
