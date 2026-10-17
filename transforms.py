@@ -54,28 +54,24 @@ def census_truncation_transform():
     df = raw_df[['MARSUPWT']].copy()
     df['unweighted_usd'] = income_df.sum(axis = 1)
     # df['unweighted_usd'] = raw_df['PTOTVAL']
-    df.rename({"MARSUPWT":"people"}, inplace=True, axis = 1)
+    df.rename({"MARSUPWT":"population"}, inplace=True, axis = 1)
     df.to_csv(raw_path/'pppub25_truncated.csv', index=False) #this original file is large, I don't want to store it.
 
-def census_personal_income_transform():
-    df = pd.read_csv(raw_path/'pppub25_truncated.csv')
+def census_personal_income_transform(file = 'pppub25_truncated.csv'):
+    df = pd.read_csv(raw_path/file)
 
     df = df[df['unweighted_usd'] > 0]
-    df['people']= df['people']/100
-    df['usd'] = df['unweighted_usd'] * df['people']
-    df['bin'] = log_bin(df['unweighted_usd'], factor = 1)
+    df['population']= df['population']/100
+    df['usd'] = df['unweighted_usd'] * df['population']
+    df['bin'] = log_lin_bin(df['unweighted_usd'], factor = 1)
     df[df['bin'] < 10000] = 10000
     df[df['bin'] > 1000000] = 1000000
-    df = df.groupby('bin').agg({'people':'sum', 'usd':'sum'})
-    df['people_cdf'] = df['people'].cumsum()/df['people'].sum()
-    df['usd_cdf'] = df['usd'].cumsum()/df['usd'].sum()
+    df = df.groupby('bin').agg({'population':'sum', 'usd':'sum'})
     df.reset_index(inplace=True)
-    df.rename({"bin":"salary_bin"},axis =1, inplace=True)
-    df['people_bin'] = log_bin(df['people'], factor = 1)
-    df.to_csv(clean_path/'census_personal_income.csv', index=False)
+    df.to_csv(clean_path/'us_income.csv', index=False)
 
     # e.g. plot; bins need to go to string for proper display
-    # px.bar(y = df['usd'], x = df.index.astype(str))
+    # 
 
 def quick_stats_transform():
     import csv 
@@ -108,9 +104,41 @@ def clean_fred_data():
             print(f'Transform failed: {s}')
     print("FRED data transforms completed")
 
-def log_bin(column, factor = 1):
+def log_lin_bin(column, factor = 1):
     floor = np.pow(10,np.floor(np.log10(column)))
     bin = np.floor(column/floor/factor) * floor * factor
     bin = np.where(bin == 0, floor, bin).astype(int)
     return bin
-    
+
+def SFCP_transform(file = 'SCFP2022.csv'):
+    df = pd.read_csv(raw_path/file)
+
+    # Define variables
+    # STOCKS: Direct & indirect stock holdings
+    # HOUSES + ORESRE: Primary residence + other real estate
+    # CHECKING
+    # SAVING
+    # DEBT
+    # NETWORTH: Total net worth
+    # cols = 'YY1,WGT,STOCKS,HOUSES,ORESRE,CHECKING,SAVING,DEBT,NETWORTH'.split(',')
+    cols = 'YY1,WGT,NETWORTH'.split(',')
+    # focus = [x.lower() for x in cols[2:]]
+    focus = cols[2:]
+    df = df[cols]
+    f = 'NETWORTH'
+    d = df.loc[:, ['YY1', 'WGT', f]].copy()
+    d.loc[d[f] <= 0,f] = 1 #needed for log operation later
+  
+    d['bin'] = log_lin_bin(d[f])
+    d.loc[d[f] == 1,f] = 0
+    d.loc[d['bin'] == 1,'bin'] = 0
+    d[f.lower()] = d[f] * d['WGT']
+    d.loc[(d['bin'] < 10000) & (d['bin'] > 1), 'bin'] = 10000
+    d.loc[(d['bin'] >= 1000000), 'bin'] = 1000000
+    d = d.groupby('bin').agg({'WGT':'sum', f.lower():'sum'})
+    d.reset_index(inplace=True)
+    d.rename({'networth':'usd', 'WGT':'population'},axis = 1, inplace = True)
+
+    df = d
+
+    df.to_csv(clean_path/'us_wealth.csv', index=False)
