@@ -1,7 +1,4 @@
-subject,unit,multiplier,source,search_query,filename,link,note
-us_population,population,1000,FRED,POPTHM,POPTHM.csv,https://fred.stlouisfed.org/,
-debt,,1,Treasury,Debt To Penny,DebtPenny_19930401_20260820.csv,https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny,
-us_households,population,1000,FRED,TTLHH,TTLHH.csv,https://fred.stlouisfed.org/series/TTLHH,
-census_personal_income,,,census,,pppub25_truncated.csv,https://www.census.gov/data/datasets/time-series/demo/cps/cps-asec.2025.html#list-tab-165711867,
-personal_income_dispositions,usd,,bea,Table 2.6. Personal Income and Its Disposition,SCFP2022.csv,https://www.federalreserve.gov/econres/scfindex.htm?utm_source=gemini,
-,,,,,,https://www.bea.gov/index.php/news/2026/personal-income-and-outlays-december-2025,
+subject,source,search_query,filename,link
+census_personal_income,census,,pppub25_truncated.csv,https://www.census.gov/data/datasets/time-series/demo/cps/cps-asec.2025.html#list-tab-165711867
+wealth,,,SCFP2022.csv,https://www.federalreserve.gov/econres/scfindex.htm?utm_source=gemini
+personal_income_dispositions,bea,Table 2.6. Personal Income and Its Disposition,personal_income_bea.csv,https://www.bea.gov/index.php/news/2026/personal-income-and-outlays-december-2025

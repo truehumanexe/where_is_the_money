@@ -8,32 +8,6 @@ raw_path = root/"raw"
 clean_path = root/"clean"
 map_name = "data_map.csv"
 
-def fred_transform(subject, save = False):
-    data_map = pd.read_csv(root/map_name)
-    data_map = data_map.loc[data_map['subject'] == subject,:]
-
-    name = data_map['subject'].values[0]
-    unit = data_map['unit'].values[0]
-    multiplier = data_map['multiplier'].values[0]
-    input_file = data_map['filename'].values[0]
-    column_name = input_file.split('.')[0]
-
-    df = pd.read_csv(raw_path/input_file)
-    df = df.rename({'observation_date':'date', column_name: unit}, axis = 1)
-
-    df[unit] *= multiplier	
-
-    df['year'] = pd.to_datetime(df['date']).dt.year
-
-    if unit == 'population':
-        df = df[['year',unit]].groupby('year').mean().reset_index()
-    else:
-        df = df[['year',unit]].groupby('year').sum().reset_index()
-
-    if save:
-        df.to_csv((clean_path/name).with_suffix('.csv'), index=False)
-
-    return(df)
 
 def census_truncation_transform():
     raw_df = pd.read_csv(raw_path/'pppub25.csv')
@@ -53,9 +27,9 @@ def census_truncation_transform():
     income_df = raw_df[market_cols]
     df = raw_df[['MARSUPWT']].copy()
     df['unweighted_usd'] = income_df.sum(axis = 1)
-    # df['unweighted_usd'] = raw_df['PTOTVAL']
     df.rename({"MARSUPWT":"population"}, inplace=True, axis = 1)
-    df.to_csv(raw_path/'pppub25_truncated.csv', index=False) #this original file is large, I don't want to store it.
+    df.to_csv(raw_path/'pppub25_truncated.csv', index=False) # the original file is too large
+
 
 def census_personal_income_transform(file = 'pppub25_truncated.csv'):
     df = pd.read_csv(raw_path/file)
@@ -70,10 +44,15 @@ def census_personal_income_transform(file = 'pppub25_truncated.csv'):
     df.reset_index(inplace=True)
     df.to_csv(clean_path/'us_income.csv', index=False)
 
-    # e.g. plot; bins need to go to string for proper display
-    # 
 
-def quick_stats_transform():
+def census_income_adjustment():
+    census_df = pd.read_csv(clean_path/"us_income.csv")
+    upper_income = census_df.loc[census_df['bin'] == 1000000, 'population'].values[0] * 1000000
+    census_df.loc[census_df['bin'] == 1000000, 'usd'] =  upper_income
+    census_df.to_csv(clean_path/'us_income_adjusted.csv', index = False)
+
+
+def bea_transform():
     import csv 
     lines=[]
 
@@ -82,27 +61,12 @@ def quick_stats_transform():
 
     lines = lines[5:49]
     lines = csv.reader(lines)
-    # lines = list(map(lambda x: x.replace('\"', ''), lines))
-    # lines = list(map(lambda x: x.split(',')[1:3], lines))
     lines = list(map(lambda x: {'key':x[1].strip(), 'value':x[2].strip()}, lines))
     df = pd.DataFrame(lines)
     df['value'] = pd.to_numeric(df['value'], errors='coerce')
     df['value'] *= 1e9
-    df.to_csv([clean_path/'quick_stats.csv'], index=False)
+    df.to_csv(clean_path/'bea_income.csv', index=False)
 
-
-
-def clean_fred_data():
-    data_map = pd.read_csv(root/map_name)
-    subjects = data_map.loc[data_map['source'] == 'FRED', 'subject'].values
-
-    for s in subjects:
-        try:
-            fred_transform(s, save = True)
-
-        except Exception as e:
-            print(f'Transform failed: {s}')
-    print("FRED data transforms completed")
 
 def log_lin_bin(column, factor = 1):
     floor = np.pow(10,np.floor(np.log10(column)))
@@ -110,7 +74,8 @@ def log_lin_bin(column, factor = 1):
     bin = np.where(bin == 0, floor, bin).astype(int)
     return bin
 
-def SFCP_transform(file = 'SCFP2022.csv'):
+
+def SCFP_transform(file = 'SCFP2022.csv'):
     df = pd.read_csv(raw_path/file)
 
     # Define variables
@@ -120,14 +85,12 @@ def SFCP_transform(file = 'SCFP2022.csv'):
     # SAVING
     # DEBT
     # NETWORTH: Total net worth
-    # cols = 'YY1,WGT,STOCKS,HOUSES,ORESRE,CHECKING,SAVING,DEBT,NETWORTH'.split(',')
+
     cols = 'YY1,WGT,NETWORTH'.split(',')
-    # focus = [x.lower() for x in cols[2:]]
-    focus = cols[2:]
     df = df[cols]
     f = 'NETWORTH'
     d = df.loc[:, ['YY1', 'WGT', f]].copy()
-    d.loc[d[f] <= 0,f] = 1 #needed for log operation later
+    d.loc[d[f] <= 0,f] = 1 # needed for log operation later
   
     d['bin'] = log_lin_bin(d[f])
     d.loc[d[f] == 1,f] = 0

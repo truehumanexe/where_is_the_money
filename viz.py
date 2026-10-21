@@ -5,14 +5,17 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 
-def create_salary_tornado_chart(
+def create_tornado_chart(
     salaries: np.ndarray,
     population: np.ndarray,
     wealth: np.ndarray,
     population_title: str = "Population",
-    wealth_title: str = "USD",
-    chart_title: str = "Money",
+    bin_title: str = 'Salary',
+    money_title: str = "USD",
+    chart_title: str = "",
     use_log: bool = False,
+    lower_salary_boundary = 10000,
+    upper_salary_boundary = 1000000,
 ) -> go.Figure:
   """Creates a centered mirrored horizontal bar chart (tornado chart)
 
@@ -20,7 +23,7 @@ def create_salary_tornado_chart(
   """
   # Format numeric salaries if needed
   if pd.api.types.is_numeric_dtype(salaries):
-    salaries = np.array([format_to_compact_integer_string(s) for s in salaries])
+    salaries = np.array([format_to_compact_integer_string(s, lower_salary_boundary, upper_salary_boundary) for s in salaries])
 
   # Padding categories at the top and bottom for visual breathing room
   padded_salaries = np.insert(np.append(salaries, ""), 0, "")
@@ -35,7 +38,7 @@ def create_salary_tornado_chart(
       shared_yaxes=True,
       column_widths=[0.48, 0.04, 0.48],  # Middle column acts as the text gutter
       horizontal_spacing=0.02,
-      subplot_titles=(population_title, "", wealth_title),
+      subplot_titles=(population_title, bin_title, money_title),
   )
 
   # 1. Left Side: Population
@@ -111,20 +114,21 @@ def create_salary_tornado_chart(
       template="plotly_white",
       margin=dict(l=60, r=60, t=80, b=70),
       height=650,
+    #   autosize=False,
   )
 
   # Add the "Salaries" label safely without wiping out subplot titles
-  fig.add_annotation(
-      text="<b>Salaries</b>",
-      x=0.5,
-      y=-0.08,
-      xref="paper",
-      yref="paper",
-      showarrow=False,
-      xanchor="center",
-      yanchor="top",
-      font=dict(size=12, family="sans-serif", color="#333333"),
-  )
+#   fig.add_annotation(
+#       text="<b>Salaries</b>",
+#       x=0.5,
+#       y=-0.08,
+#       xref="paper",
+#       yref="paper",
+#       showarrow=False,
+#       xanchor="center",
+#       yanchor="top",
+#       font=dict(size=12, family="sans-serif", color="#333333"),
+#   )
 
   return fig
 
@@ -132,35 +136,41 @@ def create_salary_tornado_chart(
 
 
 
-def format_to_compact_integer_string(val: float) -> str:
+def format_to_compact_integer_string(val: float, lower_bound = 10000, upper_bound = 1000000) -> str:
   """Converts a numerical input into a compact integer-only string
 
   representation (max 4 characters total, e.g., '500', '12K', '150K', '2M').
   No decimals are used; values are rounded to the nearest whole integer
   within their magnitude tier.
   """
-  if val == 0 or np.isnan(val):
-    return "0"
+  if np.isinf(val):
+    return "Total"
+  else:
+    if val == 0 or np.isnan(val):
+        return "0"
 
-  sign = "-" if val < 0 else ""
-  val = abs(val)
+    sign = "-" if val < 0 else ""
+    val = abs(val)
 
-  # Use log base 10 to determine the order of magnitude
-  exp = int(math.floor(math.log10(val)))
-  tier = exp // 3  # 0 = ones, 1 = thousands (K), 2 = millions (M), etc.
+    # Use log base 10 to determine the order of magnitude
+    exp = int(math.floor(math.log10(val)))
+    tier = exp // 3  # 0 = ones, 1 = thousands (K), 2 = millions (M), etc.
 
-  suffixes = ["", "K", "M", "B", "T", "P"]
-  if tier >= len(suffixes):
-    tier = len(suffixes) - 1
+    suffixes = ["", "K", "M", "B", "T", "P"]
+    if tier >= len(suffixes):
+        tier = len(suffixes) - 1
 
-  # Scale down and round to the nearest whole integer
-  scaled = val / (10 ** (tier * 3))
-  rounded = int(round(scaled))
-
-  # Edge case: if rounding pushes a 3-digit number up to 1000, bump the tier
-  if rounded >= 1000 and tier < len(suffixes) - 1:
-    tier += 1
+    # Scale down and round to the nearest whole integer
     scaled = val / (10 ** (tier * 3))
-    rounded = int(np.floor(scaled))
+    rounded = int(round(scaled))
 
-  return f"{sign}{rounded}{suffixes[tier]}"
+    boundary_indicator = '+' if val >= upper_bound else ' ' # blank space will allow consistent look when center aligned
+    boundary_indicator = '-' if val <= lower_bound else boundary_indicator
+
+    # Edge case: if rounding pushes a 3-digit number up to 1000, bump the tier
+    if rounded >= 1000 and tier < len(suffixes) - 1:
+        tier += 1
+        scaled = val / (10 ** (tier * 3))
+        rounded = int(np.floor(scaled))
+
+    return f"{sign}{rounded}{suffixes[tier]}{boundary_indicator}"
