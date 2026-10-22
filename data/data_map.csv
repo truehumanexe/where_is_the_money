@@ -1,4 +1,4 @@
 subject,source,search_query,filename,link
 census_personal_income,census,,pppub25_truncated.csv,https://www.census.gov/data/datasets/time-series/demo/cps/cps-asec.2025.html#list-tab-165711867
-wealth,,,SCFP2022.csv,https://www.federalreserve.gov/econres/scfindex.htm?utm_source=gemini
+wealth,,,SCFP2022.csv,https://www.federalreserve.gov/econres/scfindex.htm
 personal_income_dispositions,bea,Table 2.6. Personal Income and Its Disposition,personal_income_bea.csv,https://www.bea.gov/index.php/news/2026/personal-income-and-outlays-december-2025
