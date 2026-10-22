@@ -5,7 +5,7 @@ A brief overview of U.S. Financial data
 ---
 
 ### 2026 Quick Financial Stats
-| Category | Official Value | Percentage
+| Category | Value (10/2026) | Percentage
 | :--- | :--- | :---|
 | [Federal Revenue](https://fiscaldata.treasury.gov/americas-finance-guide/government-revenue/) | $5.40 Trillion | 100% |
 | - [Federal Debt](https://fiscaldata.treasury.gov/americas-finance-guide/national-debt/) | $40.40 Trillion | 748% |
