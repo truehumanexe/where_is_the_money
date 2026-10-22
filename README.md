@@ -11,12 +11,12 @@ A brief overview of U.S. Financial data
 | - [Federal Debt](https://fiscaldata.treasury.gov/americas-finance-guide/national-debt/) | $40.40 Trillion | 748% |
 | - [Federal Deficit](https://fiscaldata.treasury.gov/americas-finance-guide/national-deficit/) | $2.00 Trillion | 37% |
 | [Federal Budget Spending](https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/) | $7.40 Trillion | 100% |
-| - [Medicare & Health Spending](https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/) | ~$2.15 Trillion | 29% |
-| - [Social Security Spending](https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/) | ~$1.70 Trillion | 23% |
-| - [Net Interest Spending](https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/) | ~$1.04 Trillion | 14% |
-| - [Defense Spending](https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/) | ~$962 Billion | 13% |
-| [Personal Income](https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026) | $27.60 Trillion (SAAR) | 100% |
-| - [Personal Savings](https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026) | $1.02 Trillion (SAAR) | 4% |
+| - [Medicare & Health Spending](https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/) | $2.15 Trillion | 29% |
+| - [Social Security Spending](https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/) | $1.70 Trillion | 23% |
+| - [Net Interest Spending](https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/) |$1.04 Trillion | 14% |
+| - [Defense Spending](https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/) | $962 Billion | 13% |
+| [Personal Income](https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026) | $27.60 Trillion | 100% |
+| - [Personal Savings](https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026) | $1.02 Trillion | 4% |
 | [Total Household Wealth](https://fred.stlouisfed.org/series/BOGZ1FL192090005Q) | $185.65 Trillion | 100% |
 | - [Owner-Occupied Real Estate Wealth](https://fred.stlouisfed.org/series/BOGZ1FL155035013Q) | $47.89 Trillion | 26% |
 | - [Direct & Indirect Stock Wealth](https://fred.stlouisfed.org/series/BOGZ1LM153064475Q) | $74.03 Trillion | 40% |
